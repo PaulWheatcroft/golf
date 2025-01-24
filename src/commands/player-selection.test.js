@@ -29,4 +29,8 @@ describe('player-selection', () => {
         expect(match.data).toHaveLength(1)
         expect(match.data[0].teeOff).toHaveLength(2) 
     })
+    it('player selection should retun and error if there are less than two players', () => {
+        const player1 = { name: 'player1' }
+        expect(() => playerSelection([player1])).toThrow('Error selecting players')
+    })
 })

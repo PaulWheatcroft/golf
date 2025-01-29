@@ -32,7 +32,6 @@ describe('tee-off', () => {
 
         teeOffPosition(firstPlayer, positionalOptions[0])
         teeOffPosition(secondPlayer, positionalOptions[1])
-        console.dir(Match.getInstance(), { depth: null })
         expect(match.data).toHaveLength(2)
         expect(match.data[1].teeOffPosition[1]).toBe("middle")
     })

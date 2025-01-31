@@ -21,7 +21,6 @@ describe('player-selection', () => {
 
         playerSelection(nameOne, nameTwo)
         const match = Match.getInstance()
-        console.log("*************", match.data)
         expect(match.data[0].name).not.toBe(match.data[1].name)
     })
     it('player selection should retun and error if there are less than two players', () => {

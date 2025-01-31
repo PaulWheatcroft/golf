@@ -7,7 +7,6 @@ export default function playerSelection(playerOne: string, playerTwo: string) {
         { name: playerOne },
         { name: playerTwo }
     ]
-    console.log(players)
     if (!players[0].name || !players[1].name) {
         return 'Error selecting players'
     }

@@ -6,31 +6,27 @@ beforeEach(() => {
 })
 
 describe('player-selection', () => {
-    it('should order the players in an array of two players', () => {
-        const player1 = { name: 'player1' }
-        const player2 = { name: 'player2' }
+    it('should order the players in the Match singleton', () => {
+        const nameOne = 'Paul' 
+        const nameTwo = 'Vladislav'
 
-        const response = playerSelection([player1, player2])
-        expect(response).toHaveLength(2)
+        playerSelection(nameOne, nameTwo)
+        const match = Match.getInstance()
+        
+        expect(match.data).toHaveLength(2)
     })
     it('should order the players randomly', () => {
-        const player1 = { name: 'player1' }
-        const player2 = { name: 'player2' }
+        const nameOne = 'Paul' 
+        const nameTwo = 'Vladislav'
 
-        const random_order_of_players = playerSelection([player1, player2])
-        expect(random_order_of_players[0]).not.toEqual(random_order_of_players[1])
-    })
-    it('should store the order of the players in the Match singleton', () => {
-        const player1 = { name: 'player1' }
-        const player2 = { name: 'player2' }
-
-        playerSelection([player1, player2])
+        playerSelection(nameOne, nameTwo)
         const match = Match.getInstance()
-        expect(match.data).toHaveLength(1)
-        expect(match.data[0].teeOff).toHaveLength(2) 
+        console.log("*************", match.data)
+        expect(match.data[0].name).not.toBe(match.data[1].name)
     })
     it('player selection should retun and error if there are less than two players', () => {
-        const player1 = { name: 'player1' }
-        expect(() => playerSelection([player1])).toThrow('Error selecting players')
+        const nameOne = 'Paul' 
+        const response = playerSelection(nameOne)
+        expect(response).toBe('Error selecting players')
     })
 })

@@ -1,11 +1,29 @@
 import Match from '../data-store/match'
 
-export default function playerSelection(players: { name: string }[]) {
-    if (players.length !== 2) {
-        throw new Error('Error selecting players')
+const match = Match.getInstance()
+
+export default function playerSelection(playerOne: string, playerTwo: string) {
+    const players = [
+        { name: playerOne },
+        { name: playerTwo }
+    ]
+    console.log(players)
+    if (!players[0].name || !players[1].name) {
+        return 'Error selecting players'
     }
     const teeOffOrder = players.sort(() => Math.random() - 0.5)
-    const match = Match.getInstance()
-    match.data.push({ teeOff: teeOffOrder })
-    return teeOffOrder
+    match.data.push(
+        { 
+            id: 1,
+            type: 'player',
+            name: teeOffOrder[0].name,
+        },
+        { 
+            id: 2,
+            type: 'player',
+            name: teeOffOrder[1].name,
+        }
+    )
+
+    return
 } 

@@ -4,35 +4,38 @@ import Match from '../data-store/match'
 const positionalOptions = ["left", "middle", "right"]
 
 beforeEach(() => {
-    Match.getInstance().data = []
+    Match.getInstance().data = [
+        { id: 1, type: 'player', name: 'Vladislav' },
+        { id: 2, type: 'player', name: 'Paul' },
+    ]
 })
 
-describe('tee-off', () => {
-    it('it should only run if players have selected', () => {
+describe('tee-off hole one', () => {
+    it('the first player chooses the left position to tee off from ', () => {
         const match = Match.getInstance()
+        const firstPlayer = match.data[0]
+
+        teeOffPosition(firstPlayer, positionalOptions[0])
         
-        const firstPlayer = {"name": "player1"}
-        const response = teeOffPosition(firstPlayer, 1)
-        expect(response).toBe('Please select players first')
+        expect(match.data).toHaveLength(3)
+        expect(match.data[2].position).toBe("left")
     })
-    it('the first player chooses the central position to tee off from and it is stored in the Match singleton', () => {
+    it('the second player cannot tee off if the first player has yet to', () => {
         const match = Match.getInstance()
-        match.data.push({ teeOff: [{"name": "player1"}, {"name": "player2"}] })
-        const firstPlayer = match.data[0].teeOff[0]
+        const secondPlayer = match.data[1]
 
-        teeOffPosition(firstPlayer, positionalOptions[0])
-        expect(match.data).toHaveLength(2)
-        expect(match.data[1].teeOffPosition[0]).toBe("left")
+        console.log("*****111********", match.data)
+        
+        const response = teeOffPosition(secondPlayer, positionalOptions[1])
+        expect(response).toBe('Please wait for the first player to tee off')
     })
-    it('the second player chooses the central position to tee off from and it is stored in the Match singleton', () => {
+    it("the second player can tee off after the first player has teed off", () => {
         const match = Match.getInstance()
-        match.data.push({ teeOff: [{"name": "player1"}, {"name": "player2"}] })
-        const firstPlayer = match.data[0].teeOff[0]
-        const secondPlayer = match.data[0].teeOff[1]
+        match.data.push({ playerId: 1, playerName: 'Vladislav', type: 'teeOffPosition', position: 'left' })
+        const secondPlayer = match.data[1]
 
-        teeOffPosition(firstPlayer, positionalOptions[0])
         teeOffPosition(secondPlayer, positionalOptions[1])
-        expect(match.data).toHaveLength(2)
-        expect(match.data[1].teeOffPosition[1]).toBe("middle")
+        expect(match.data).toHaveLength(4)
+        expect(match.data[3].position).toBe("middle")
     })
 })

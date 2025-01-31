@@ -1,18 +1,13 @@
 import Match from '../data-store/match'
+import { Player } from '../types/index'
 
-export default function teeOffPosition(playerOrder: number, position: number) {
-    // no shot hasn't been taken
+export default function teeOffPosition(player: Player, position: number) {
     const match = Match.getInstance()
-    if (match.data.length === 0) {
-        return 'Please select players first'
+    if (!player) {
+        return 'Please select a player'
     }
-    if (match.data.length === 1) {
-        match.data.push({ teeOffPosition: [position] })
-        return
+    if (player.id == 2 && !match.data[2]) {
+        return 'Please wait for the first player to tee off'
     }
-    if (match.data.length === 2 && match.data[1].teeOffPosition.length === 1) {
-        // add the socond player tee off position to the array
-        match.data[1].teeOffPosition.push(position)
-        return
-    }
+    match.data.push({ playerId: player.id, playerName: player.name, type: 'teeOffPosition', position: position })
 }

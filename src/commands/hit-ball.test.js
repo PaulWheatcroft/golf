@@ -28,7 +28,7 @@ describe('hit-ball at tee off', () => {
         const response = hitBall(player1)
         expect(response).toBe('It is not your turn')
     })
-    it.only('should return the distance and accuracy', () => {
+    it('should return the distance and accuracy', () => {
         const match = Match.getInstance()
         const player1 = match.data[0]
         hitBall(player1)

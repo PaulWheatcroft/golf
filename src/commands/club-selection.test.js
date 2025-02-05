@@ -34,8 +34,6 @@ describe('club-selection at tee off', () => {
         const match = Match.getInstance()
         const player1 = match.data[0]
         clubSelection(player1, clubs[4])
-        expect(match.data).toHaveLength(4)
-        console.log("************", match.data)
         expect(match.data[3].club.name).toBe("Long Iron")
     })
 

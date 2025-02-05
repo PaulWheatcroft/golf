@@ -23,8 +23,6 @@ describe('tee-off hole one', () => {
     it('the second player cannot tee off if the first player has yet to', () => {
         const match = Match.getInstance()
         const secondPlayer = match.data[1]
-
-        console.log("*****111********", match.data)
         
         const response = teeOffPosition(secondPlayer, positionalOptions[1])
         expect(response).toBe('Please wait for the first player to tee off')

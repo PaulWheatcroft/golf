@@ -11,5 +11,5 @@ export default function clubSelection(player: Player, club: string) {
     if (checkPlayerTeeOffPosition.playerId !== player.id) {
         return 'You need to select a tee off position first'
     }
-    match.data.push({ playerId: player.id, playerName: player.name, type: 'clubeSelection', club })
+    match.data.push({ playerId: player.id, playerName: player.name, type: 'clubSelection', club })
 }

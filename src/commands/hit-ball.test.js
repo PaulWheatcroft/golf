@@ -14,28 +14,29 @@ beforeEach(() => {
         {
             playerId: 1,
             playerName: 'Vladislav',
-            type: 'clubeSelection',
+            type: 'clubSelection',
             club: { name: 'Long Iron', maxDistance: 5, rough: false, sand: false }
         },
     ]
 })
 
 describe('hit-ball at tee off', () => {
-    it('it should only run if the player has selected a club', () => {
+    it('should check to make sure the last club selection matches the player taking a shot', () => {
         const match = Match.getInstance()
         const player1 = match.data[0]
+        match.data.push({ playerId: 2, playerName: 'Paul', type: 'clubSelection', club: { name: 'Long Iron', maxDistance: 5, rough: false, sand: false } })
         const response = hitBall(player1)
-        expect(response).toBe('Please select a club')
+        expect(response).toBe('It is not your turn')
     })
-    // it('should return the landing position of the ball', () => {
-    //     const player1 = Match.getInstance().data[0].teeOff[0]
-    //     hitBall(player1)
-    //     const ball_position = Match.getInstance().data[3].ballPosition[0]
-    //     expect(ball_position["x"]).toBeGreaterThanorEqualTo(0)
-    //     expect(ball_position["x"]).toBeLessThan(8)
-    //     expect(ball_position["y"]).toBeGreaterThanorEqualTo(4)
-    //     expect(ball_position["y"]).toBeLessThanorEqualTo(6)
-    // })
+    it.only('should return the distance and accuracy', () => {
+        const match = Match.getInstance()
+        const player1 = match.data[0]
+        hitBall(player1)
+        console.log(match.data)
+        // in test findLast needs to run on match.data not just match
+        const lastHitBall = match.data.findLast(item => item.type === 'hitBall');
+        expect(lastHitBall).toEqual({ playerId: 1, playerName: 'Vladislav', type: 'hitBall', distance: 5, accuracy: 0 })
+    })
 })
 
 

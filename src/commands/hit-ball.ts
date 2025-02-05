@@ -10,7 +10,10 @@ function randomNumber() {
 }
 
 function lookupHandicapPowerScore(player, selectedClub, powerRoll, accuracyRoll) {
-    // get handicap scores
+    console.log('*** player', player)
+    console.log('*** selectedClub', selectedClub.club.name)
+    console.log('*** powerRoll', powerRoll)
+    console.log('*** accuracyRoll', accuracyRoll)
     return {
         power: 0,
         accuracy: 0
@@ -18,14 +21,24 @@ function lookupHandicapPowerScore(player, selectedClub, powerRoll, accuracyRoll)
 }
 
 export default function hitBall(player) {
-    const match = Match.getInstance()
-    const teeOffPositions = match.data[1].holes[0].teeOffPositions
-    const selectedClub = match.data[2].club[0]
+    const match = Match.getInstance().data;
+    const selectedClub = match.findLast(item => item.type === 'clubSelection');
+
+    if (!selectedClub) {
+        return 'Please select a club'
+    }
+    console.log('*** selectedClub', selectedClub.playerId, player)
+    if (selectedClub.playerId !== player.id) {
+        return 'It is not your turn'
+    }
     
     const powerRoll = randomNumber()
     const accuracyRoll = randomNumber()
     const handicapScore = lookupHandicapPowerScore(player, selectedClub, powerRoll, accuracyRoll)
     
-    const distance = selectedClub.distance + handicapScore.power
+    const distance = selectedClub.club.maxDistance + handicapScore.power
     const accuracy = handicapScore.accuracy
+    
+    match.push({ playerId: player.id, playerName: player.name, type: 'hitBall', distance, accuracy })
+    return
 }

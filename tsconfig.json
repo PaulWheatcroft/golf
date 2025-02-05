@@ -3,9 +3,9 @@
     "display": "Node 16",
   
     "compilerOptions": {
-        "target": "es6",
+        "target": "es2023",
         "module": "es6"
     },
     "include": ["src/**/*"],
     "exclude": ["**/*.spec.ts"]
-  }
+}

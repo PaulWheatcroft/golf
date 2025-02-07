@@ -1,6 +1,8 @@
-// create a class that will be use to store an array of objects that will be used to store the match data as singleton
+import { firstHole } from "./first-hole";
 export default class Match {
     public data = [];
+    public map = firstHole.map;
+    public teeoffPosition = firstHole.teeoffPositions;
     private static instance: Match;
 
     public static getInstance(): Match {

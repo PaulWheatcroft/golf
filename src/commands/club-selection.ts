@@ -1,8 +1,8 @@
-import Match from '../data-store/match'
+import Hole from '../data-store/match'
 import { Player } from '../types/index'
 
 export default function clubSelection(player: Player, club: string) {
-    const match = Match.getInstance()
+    const match = Hole.getInstance()
     if (!club) {
         return 'Please select a club'
     }

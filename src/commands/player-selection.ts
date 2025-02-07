@@ -1,6 +1,6 @@
-import Match from '../data-store/match'
+import Hole from '../data-store/match'
 
-const match = Match.getInstance()
+const match = Hole.getInstance()
 
 export default function playerSelection(playerOne: string, playerTwo: string) {
     const players = [

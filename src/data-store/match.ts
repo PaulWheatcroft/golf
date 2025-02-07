@@ -1,14 +1,14 @@
-import { firstHole } from "./first-hole";
-export default class Match {
+import { firstHole } from "./holes";
+export default class Hole {
     public data = [];
     public map = firstHole.map;
     public teeoffPosition = firstHole.teeoffPositions;
-    private static instance: Match;
+    private static instance: Hole;
 
-    public static getInstance(): Match {
-        if (!Match.instance) {
-            Match.instance = new Match();
+    public static getInstance(): Hole {
+        if (!Hole.instance) {
+            Hole.instance = new Hole();
         }
-        return Match.instance;
+        return Hole.instance;
     }
 }

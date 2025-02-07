@@ -1,4 +1,4 @@
-import Match from '../data-store/match'
+import Hole from '../data-store/match'
 import { Player } from '../types/index'
 
 
@@ -7,7 +7,7 @@ function teeOffPositionExists(target, arrayOfArrays) {
   }
 
 export default function teeOffPosition(player: Player, position: [number, number]) {
-    const match = Match.getInstance()
+    const match = Hole.getInstance()
     if (!player) {
         return 'Please select a player'
     }

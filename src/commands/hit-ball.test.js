@@ -1,15 +1,15 @@
-import Match from '../data-store/match'
+import Hole from '../data-store/match'
 import hitBall from './hit-ball'
 
 beforeEach(() => {
-    Match.getInstance().data = [
+    Hole.getInstance().data = [
         { id: 1, type: 'player', name: 'Vladislav' },
         { id: 2, type: 'player', name: 'Paul' },
         {
             playerId: 1,
             playerName: 'Vladislav',
             type: 'teeOffPosition',
-            position: 'left'
+            position: [ 11, 2 ]
         },
         {
             playerId: 1,
@@ -22,14 +22,14 @@ beforeEach(() => {
 
 describe('hit-ball at tee off', () => {
     it('should check to make sure the last club selection matches the player taking a shot', () => {
-        const match = Match.getInstance()
+        const match = Hole.getInstance()
         const player1 = match.data[0]
         match.data.push({ playerId: 2, playerName: 'Paul', type: 'clubSelection', club: { name: 'Long Iron', maxDistance: 5, rough: false, sand: false } })
         const response = hitBall(player1)
         expect(response).toBe('It is not your turn')
     })
     it('should return the distance and accuracy', () => {
-        const match = Match.getInstance()
+        const match = Hole.getInstance()
         const player1 = match.data[0]
         hitBall(player1)
         console.log(match.data)

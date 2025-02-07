@@ -1,4 +1,4 @@
-import Match from '../data-store/match'
+import Hole from '../data-store/match'
 import clubSelection from './club-selection'
 
 
@@ -21,7 +21,7 @@ function lookupHandicapPowerScore(player, selectedClub, powerRoll, accuracyRoll)
 }
 
 export default function hitBall(player) {
-    const match = Match.getInstance().data;
+    const match = Hole.getInstance().data;
     const selectedClub = match.findLast(item => item.type === 'clubSelection');
 
     if (!selectedClub) {

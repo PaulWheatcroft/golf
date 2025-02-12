@@ -15,7 +15,7 @@ beforeEach(() => {
             playerId: 1,
             playerName: 'Vladislav',
             type: 'clubSelection',
-            club: { name: 'Long Iron', maxDistance: 5, rough: false, sand: false }
+            club: { name: 'Long Iron', distance: 5, rough: false, sand: false }
         },
     ]
 })
@@ -24,7 +24,7 @@ describe('hit-ball at tee off', () => {
     it('should check to make sure the last club selection matches the player taking a shot', () => {
         const match = Hole.getInstance()
         const player1 = match.data[0]
-        match.data.push({ playerId: 2, playerName: 'Paul', type: 'clubSelection', club: { name: 'Long Iron', maxDistance: 5, rough: false, sand: false } })
+        match.data.push({ playerId: 2, playerName: 'Paul', type: 'clubSelection', club: { name: 'Long Iron', distance: 5, rough: false, sand: false } })
         const response = hitBall(player1)
         expect(response).toBe('It is not your turn')
     })

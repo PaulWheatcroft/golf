@@ -36,7 +36,7 @@ export default function hitBall(player) {
     const accuracyRoll = randomNumber()
     const handicapScore = lookupHandicapPowerScore(player, selectedClub, powerRoll, accuracyRoll)
     
-    const distance = selectedClub.club.maxDistance + handicapScore.power
+    const distance = selectedClub.club.distance + handicapScore.power
     const accuracy = handicapScore.accuracy
     
     match.push({ playerId: player.id, playerName: player.name, type: 'hitBall', distance, accuracy })

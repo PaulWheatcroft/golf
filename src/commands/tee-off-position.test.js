@@ -14,8 +14,6 @@ describe('tee-off hole one', () => {
         const firstPlayer = match.data[0]
 
         teeOffPosition(firstPlayer, [11, 2])
-
-        console.log(match.data)
         
         expect(match.data).toHaveLength(3)
         expect(match.data[2].position[0]).toBe(11)

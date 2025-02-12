@@ -7,7 +7,7 @@ export const firstHole = {
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
-    ["fairway", "fairway", "water", "water", "fairway"], // Row 7 (Bottom - Water)
+    ["fairway", "water", "fiarway", "outOfBounds", "fairway"], // Row 7 (Bottom - Water)
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],

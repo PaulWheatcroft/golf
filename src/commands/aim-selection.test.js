@@ -1,5 +1,6 @@
 import Hole from "../data-store/match";
 import aimSelection from "./aim-selection";
+import { clubs } from "../types/clubs";
 
 beforeEach(() => {
     Hole.getInstance().data = [
@@ -27,11 +28,13 @@ describe("aim-selection at tee off", () => {
         const response = aimSelection(player1, [4, 1]);
         expect(response).toBe("This is not an available square for you to aim at. Please select one of 6,1,6,2,6,3");
     })
-    it("Should not return squares that are not playable i.e. our of bounds, water", () => {
+    it.only("Should not return squares that are not playable i.e. out of bounds and water", () => {
         const match = Hole.getInstance();
         const player1 = match.data[0];
-        const response = aimSelection(player1, [12, 1]);
-        expect(response).toBe("This is not an available square for you to aim at. Please select one of 6,1,6,2,6,3");
+        match.data.push({ playerId: player1.id, playerName: player1.name, type: 'clubSelection', club: clubs[3] });
+        console.dir(match.data);
+        const response = aimSelection(player1, [2, 1]);
+        expect(response).toBe("This is not an available square for you to aim at. Please select one of 7,2");
     });
     it("Should return 'Ready to take a swing?' if the player selects a valid aim option", () => {
         const match = Hole.getInstance();

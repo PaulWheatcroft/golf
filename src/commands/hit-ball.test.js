@@ -32,7 +32,6 @@ describe('hit-ball at tee off', () => {
         const match = Hole.getInstance()
         const player1 = match.data[0]
         hitBall(player1)
-        console.log(match.data)
         // in test findLast needs to run on match.data not just match
         const lastHitBall = match.data.findLast(item => item.type === 'hitBall');
         expect(lastHitBall).toEqual({ playerId: 1, playerName: 'Vladislav', type: 'hitBall', distance: 5, accuracy: 0 })

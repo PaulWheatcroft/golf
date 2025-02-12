@@ -10,10 +10,6 @@ function randomNumber() {
 }
 
 function lookupHandicapPowerScore(player, selectedClub, powerRoll, accuracyRoll) {
-    console.log('*** player', player)
-    console.log('*** selectedClub', selectedClub.club.name)
-    console.log('*** powerRoll', powerRoll)
-    console.log('*** accuracyRoll', accuracyRoll)
     return {
         power: 0,
         accuracy: 0
@@ -27,7 +23,6 @@ export default function hitBall(player) {
     if (!selectedClub) {
         return 'Please select a club'
     }
-    console.log('*** selectedClub', selectedClub.playerId, player)
     if (selectedClub.playerId !== player.id) {
         return 'It is not your turn'
     }

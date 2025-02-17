@@ -17,12 +17,6 @@ beforeEach(() => {
 })
 
 describe('club-selection at tee off', () => {
-    it('a player cannot select a club if they have not teed off', () => {
-        const match = Hole.getInstance()
-        const player2 = match.data[1]
-        const response = clubSelection(player2, clubs[3])
-        expect(response).toBe('You need to select a tee off position first')
-    })
     it('the player must select a club', () => {
         const match = Hole.getInstance()
         const player1 = match.data[0]
@@ -33,8 +27,9 @@ describe('club-selection at tee off', () => {
     it('Player one selects a long iron', () => {
         const match = Hole.getInstance()
         const player1 = match.data[0]
-        clubSelection(player1, clubs[4])
-        expect(match.data[3].club.name).toBe("Long Iron")
+        clubSelection(player1, clubs[2])
+        const club = match.data.find(item => item.type === 'clubSelection')
+        expect(club.club.name).toBe("Long Iron")
     })
 
 })

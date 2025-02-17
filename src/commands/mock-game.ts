@@ -30,7 +30,7 @@ export const player2TeeOff = {
             playerIndex: 0,
             strokeNumber: 1,
             club: 'Driver',
-            ballPosition: { x: 6, y: 4 },
+            position: { x: 6, y: 4 },
             distanceFromHole: 6
           },
         ]
@@ -55,21 +55,21 @@ export const gameOne = {
             playerIndex: 0,
             strokeNumber: 1,
             club: 'Driver',
-            ballPosition: { x: 6, y: 4 },
+            position: { x: 6, y: 4 },
             distanceFromHole: 6
           },
           {
             playerIndex: 1,
             strokeNumber: 1,
             club: 'Driver',
-            ballPosition: { x: 4, y: 4 },
+            position: { x: 4, y: 4 },
             distanceFromHole: 8
           },
           {
             playerIndex: 1,
             strokeNumber: 2,
             club: 'Long Iron',
-            ballPosition: { x: 8, y: 4 },
+            position: { x: 8, y: 4 },
             distanceFromHole: 4
           },
         ]

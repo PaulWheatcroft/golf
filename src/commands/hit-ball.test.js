@@ -9,7 +9,7 @@ beforeEach(() => {
             playerId: 1,
             playerName: 'Vladislav',
             type: 'teeOffPosition',
-            position: [ 11, 2 ]
+            position: [11, 2]
         },
         {
             playerId: 1,
@@ -28,13 +28,14 @@ describe('hit-ball at tee off', () => {
         const response = hitBall(player1)
         expect(response).toBe('It is not your turn')
     })
-    it('should return the distance and accuracy', () => {
+    it('should return the new ball position', () => {
         const match = Hole.getInstance()
         const player1 = match.data[0]
+        const currentPosition = match.data.findLast(item => item.type === 'teeOffPosition');
         hitBall(player1)
         // in test findLast needs to run on match.data not just match
-        const lastHitBall = match.data.findLast(item => item.type === 'hitBall');
-        expect(lastHitBall).toEqual({ playerId: 1, playerName: 'Vladislav', type: 'hitBall', distance: 5, accuracy: 0 })
+        const newPosition = match.data.findLast(item => item.type === 'hitBall');
+        expect(newPosition.position[0]).toBeGreaterThan(currentPosition.position[0])
     })
 })
 

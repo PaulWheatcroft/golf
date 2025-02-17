@@ -31,7 +31,7 @@ describe("aim-selection at tee off", () => {
     it("Should not return squares that are not playable i.e. out of bounds and water", () => {
         const match = Hole.getInstance();
         const player1 = match.data[0];
-        match.data.push({ playerId: player1.id, playerName: player1.name, type: 'clubSelection', club: clubs[3] });
+        match.data.push({ playerId: player1.id, playerName: player1.name, type: 'clubSelection', club: clubs[1] });
         console.dir(match.data);
         const response = aimSelection(player1, [2, 1]);
         expect(response).toBe("This is not an available square for you to aim at. Please select one of 7,2");

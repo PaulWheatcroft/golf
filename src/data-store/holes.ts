@@ -1,13 +1,13 @@
 export const firstHole = {
   map: [
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
-    ["green", "green", "green", "green", "green"],
-    ["green", "green", "hole", "green", "green"],
-    ["green", "green", "green", "green", "green"],
+    ["fairway", "green", "green", "green", "fairway"],
+    ["fairway", "green", "hole", "green", "fairway"],
+    ["fairway", "green", "green", "green", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
-    ["fairway", "water", "fiarway", "outOfBounds", "fairway"], // Row 7 (Bottom - Water)
+    ["fairway", "water", "fairway", "outOfBounds", "fairway"], // Row 7 (Bottom - Water)
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],

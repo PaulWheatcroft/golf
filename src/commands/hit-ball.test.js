@@ -36,6 +36,7 @@ describe('hit-ball at tee off', () => {
         // in test findLast needs to run on match.data not just match
         const newPosition = match.data.findLast(item => item.type === 'hitBall');
         expect(newPosition.position[0]).toBeGreaterThan(currentPosition.position[0])
+        console.log("******", match.data)
     })
 })
 

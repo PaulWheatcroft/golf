@@ -4,7 +4,6 @@ import { clubs, Club } from '../types/clubs'
 
 export default function clubSelection(player: Player, club: Club) {
     const match = Hole.getInstance()
-    console.log('***** club', club)
     if (!club) {
         return 'Please select a club'
     }

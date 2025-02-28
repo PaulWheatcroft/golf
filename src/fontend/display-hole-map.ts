@@ -24,11 +24,17 @@ export default function displayHoleMap() {
           rowStr += chalk.bgBlue('   ');
           break;
         case 'outOfBounds':
-          rowStr += chalk.bgRedBright('   '); // red cross
+          rowStr += chalk.bgRedBright('   ');
           break;
-        case 'teeoff':
-          rowStr += chalk.bgWhite(' t '); // yellow golf ball symbol
+        case 'teeoffLeft':
+          rowStr += chalk.bgWhite(' 1 ');
           break;
+        case 'teeoffCenter':
+            rowStr += chalk.bgWhite(' 2 ');
+            break;
+        case 'teeoffRight':
+            rowStr += chalk.bgWhite(' 3 ');
+            break;
         default:
           rowStr += '   '; // empty space
       }

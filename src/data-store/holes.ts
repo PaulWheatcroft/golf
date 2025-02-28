@@ -11,7 +11,7 @@ export const firstHole = {
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
-    ["fairway", "teeoff", "teeoff", "teeoff", "fairway"], // Row 11 (Bottom - Teeoff)
+    ["fairway", "teeoffLeft", "teeoffCenter", "teeoffRight", "fairway"], // Row 11 (Bottom - Teeoff)
   ],
   teeoffPositions: [[11, 2], [11, 3], [11, 4]],
 };

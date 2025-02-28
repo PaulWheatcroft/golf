@@ -23,10 +23,21 @@ eval("var assert = __webpack_require__(/*! assert */ \"assert\");\n\nmodule.expo
 /*!******************************************!*\
   !*** ./src/commands/player-selection.ts ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ playerSelection)\n/* harmony export */ });\n/* harmony import */ var _data_store_match__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../data-store/match */ \"./src/data-store/match.ts\");\n\nconst match = _data_store_match__WEBPACK_IMPORTED_MODULE_0__[\"default\"].getInstance();\nfunction playerSelection(playerOne, playerTwo) {\n    const players = [\n        { name: playerOne },\n        { name: playerTwo }\n    ];\n    if (!players[0].name || !players[1].name) {\n        return 'Error selecting players';\n    }\n    const teeOffOrder = players.sort(() => Math.random() - 0.5);\n    match.data.push({\n        id: 1,\n        type: 'player',\n        name: teeOffOrder[0].name,\n    }, {\n        id: 2,\n        type: 'player',\n        name: teeOffOrder[1].name,\n    });\n    return 'Game on!!!!';\n}\n\n\n//# sourceURL=webpack:///./src/commands/player-selection.ts?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports[\"default\"] = playerSelection;\nconst match_1 = __importDefault(__webpack_require__(/*! ../data-store/match */ \"./src/data-store/match.ts\"));\nconst match = match_1.default.getInstance();\nfunction playerSelection(playerOne, playerTwo) {\n    const players = [\n        { name: playerOne },\n        { name: playerTwo }\n    ];\n    if (!players[0].name || !players[1].name) {\n        return 'Error selecting players';\n    }\n    const teeOffOrder = players.sort(() => Math.random() - 0.5);\n    match.data.push({\n        id: 1,\n        type: 'player',\n        name: teeOffOrder[0].name,\n    }, {\n        id: 2,\n        type: 'player',\n        name: teeOffOrder[1].name,\n    });\n    return 'Game on!!!!';\n}\n\n\n//# sourceURL=webpack:///./src/commands/player-selection.ts?");
+
+/***/ }),
+
+/***/ "./src/commands/tee-off-position.ts":
+/*!******************************************!*\
+  !*** ./src/commands/tee-off-position.ts ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports[\"default\"] = teeOffPosition;\nconst match_1 = __importDefault(__webpack_require__(/*! ../data-store/match */ \"./src/data-store/match.ts\"));\nfunction teeOffPosition(player, position) {\n    const match = match_1.default.getInstance();\n    if (!player) {\n        return 'Please select a player';\n    }\n    if (player.id == 2 && !match.data[2]) {\n        return 'Please wait for the first player to tee off';\n    }\n    const teeOffPosition = match.teeoffPosition[(position - 1)];\n    match.data.push({ playerId: player.id, playerName: player.name, type: 'teeOffPosition', position: teeOffPosition });\n}\n\n\n//# sourceURL=webpack:///./src/commands/tee-off-position.ts?");
 
 /***/ }),
 
@@ -34,10 +45,10 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*!*********************************!*\
   !*** ./src/data-store/holes.ts ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   firstHole: () => (/* binding */ firstHole)\n/* harmony export */ });\nconst firstHole = {\n    map: [\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"green\", \"green\", \"green\", \"fairway\"],\n        [\"fairway\", \"green\", \"hole\", \"green\", \"fairway\"],\n        [\"fairway\", \"green\", \"green\", \"green\", \"fairway\"],\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"water\", \"fairway\", \"outOfBounds\", \"fairway\"], // Row 7 (Bottom - Water)\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"teeoff\", \"teeoff\", \"teeoff\", \"fairway\"], // Row 11 (Bottom - Teeoff)\n    ],\n    teeoffPositions: [[11, 2], [11, 3], [11, 4]],\n};\n\n\n//# sourceURL=webpack:///./src/data-store/holes.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.firstHole = void 0;\nexports.firstHole = {\n    map: [\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"green\", \"green\", \"green\", \"fairway\"],\n        [\"fairway\", \"green\", \"hole\", \"green\", \"fairway\"],\n        [\"fairway\", \"green\", \"green\", \"green\", \"fairway\"],\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"water\", \"fairway\", \"outOfBounds\", \"fairway\"], // Row 7 (Bottom - Water)\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"fairway\", \"fairway\", \"fairway\", \"fairway\"],\n        [\"fairway\", \"teeoffLeft\", \"teeoffCenter\", \"teeoffRight\", \"fairway\"], // Row 11 (Bottom - Teeoff)\n    ],\n    teeoffPositions: [[11, 2], [11, 3], [11, 4]],\n};\n\n\n//# sourceURL=webpack:///./src/data-store/holes.ts?");
 
 /***/ }),
 
@@ -45,10 +56,10 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*!*********************************!*\
   !*** ./src/data-store/match.ts ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Hole)\n/* harmony export */ });\n/* harmony import */ var _holes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./holes */ \"./src/data-store/holes.ts\");\n\nclass Hole {\n    data = [];\n    map = _holes__WEBPACK_IMPORTED_MODULE_0__.firstHole.map;\n    teeoffPosition = _holes__WEBPACK_IMPORTED_MODULE_0__.firstHole.teeoffPositions;\n    static instance;\n    static getInstance() {\n        if (!Hole.instance) {\n            Hole.instance = new Hole();\n        }\n        return Hole.instance;\n    }\n}\n\n\n//# sourceURL=webpack:///./src/data-store/match.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst holes_1 = __webpack_require__(/*! ./holes */ \"./src/data-store/holes.ts\");\nclass Hole {\n    data = [];\n    map = holes_1.firstHole.map;\n    teeoffPosition = holes_1.firstHole.teeoffPositions;\n    static instance;\n    static getInstance() {\n        if (!Hole.instance) {\n            Hole.instance = new Hole();\n        }\n        return Hole.instance;\n    }\n}\nexports[\"default\"] = Hole;\n\n\n//# sourceURL=webpack:///./src/data-store/match.ts?");
 
 /***/ }),
 
@@ -56,10 +67,10 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*!*****************************************!*\
   !*** ./src/fontend/display-hole-map.ts ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ displayHoleMap)\n/* harmony export */ });\n/* harmony import */ var _data_store_match__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../data-store/match */ \"./src/data-store/match.ts\");\n/* harmony import */ var chalk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! chalk */ \"./node_modules/chalk/source/index.js\");\n\n\nconst firstHole = _data_store_match__WEBPACK_IMPORTED_MODULE_0__[\"default\"].getInstance();\nfunction displayHoleMap() {\n    console.log('Hole Map:');\n    for (let i = 0; i < firstHole.map.length; i++) {\n        const row = firstHole.map[i];\n        let rowStr = '';\n        for (let j = 0; j < row.length; j++) {\n            const cell = row[j];\n            switch (cell) {\n                case 'fairway':\n                    rowStr += chalk__WEBPACK_IMPORTED_MODULE_1__[\"default\"].bgGreen('   '); // green background\n                    break;\n                case 'green':\n                    rowStr += chalk__WEBPACK_IMPORTED_MODULE_1__[\"default\"].bgGreenBright('   ');\n                    break;\n                case 'hole':\n                    rowStr += chalk__WEBPACK_IMPORTED_MODULE_1__[\"default\"].bgGreenBright('(H)');\n                    break;\n                case 'water':\n                    rowStr += chalk__WEBPACK_IMPORTED_MODULE_1__[\"default\"].bgBlue('   ');\n                    break;\n                case 'outOfBounds':\n                    rowStr += chalk__WEBPACK_IMPORTED_MODULE_1__[\"default\"].bgRedBright('   '); // red cross\n                    break;\n                case 'teeoff':\n                    rowStr += chalk__WEBPACK_IMPORTED_MODULE_1__[\"default\"].bgWhite(' t '); // yellow golf ball symbol\n                    break;\n                default:\n                    rowStr += '   '; // empty space\n            }\n        }\n        console.log(rowStr);\n    }\n}\n\n\n//# sourceURL=webpack:///./src/fontend/display-hole-map.ts?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports[\"default\"] = displayHoleMap;\nconst match_1 = __importDefault(__webpack_require__(/*! ../data-store/match */ \"./src/data-store/match.ts\"));\nconst chalk_1 = __importDefault(__webpack_require__(/*! chalk */ \"./node_modules/chalk/source/index.js\"));\nconst firstHole = match_1.default.getInstance();\nfunction displayHoleMap() {\n    console.log('Hole Map:');\n    for (let i = 0; i < firstHole.map.length; i++) {\n        const row = firstHole.map[i];\n        let rowStr = '';\n        for (let j = 0; j < row.length; j++) {\n            const cell = row[j];\n            switch (cell) {\n                case 'fairway':\n                    rowStr += chalk_1.default.bgGreen('   '); // green background\n                    break;\n                case 'green':\n                    rowStr += chalk_1.default.bgGreenBright('   ');\n                    break;\n                case 'hole':\n                    rowStr += chalk_1.default.bgGreenBright('(H)');\n                    break;\n                case 'water':\n                    rowStr += chalk_1.default.bgBlue('   ');\n                    break;\n                case 'outOfBounds':\n                    rowStr += chalk_1.default.bgRedBright('   ');\n                    break;\n                case 'teeoffLeft':\n                    rowStr += chalk_1.default.bgWhite(' 1 ');\n                    break;\n                case 'teeoffCenter':\n                    rowStr += chalk_1.default.bgWhite(' 2 ');\n                    break;\n                case 'teeoffRight':\n                    rowStr += chalk_1.default.bgWhite(' 3 ');\n                    break;\n                default:\n                    rowStr += '   '; // empty space\n            }\n        }\n        console.log(rowStr);\n    }\n}\n\n\n//# sourceURL=webpack:///./src/fontend/display-hole-map.ts?");
 
 /***/ }),
 
@@ -67,10 +78,10 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*!*********************!*\
   !*** ./src/main.ts ***!
   \*********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _fontend_display_hole_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fontend/display-hole-map */ \"./src/fontend/display-hole-map.ts\");\n/* harmony import */ var _commands_player_selection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./commands/player-selection */ \"./src/commands/player-selection.ts\");\n/* harmony import */ var _data_store_match__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./data-store/match */ \"./src/data-store/match.ts\");\n/* harmony import */ var chalk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! chalk */ \"./node_modules/chalk/source/index.js\");\n/* harmony import */ var clear__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clear */ \"./node_modules/clear/index.js\");\n/* harmony import */ var clear__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(clear__WEBPACK_IMPORTED_MODULE_3__);\n\n\n\n\n\nclear__WEBPACK_IMPORTED_MODULE_3___default()();\nconst match = _data_store_match__WEBPACK_IMPORTED_MODULE_2__[\"default\"].getInstance();\nconst readline = __webpack_require__(/*! readline */ \"readline\");\nlet rl = readline.createInterface(process.stdin, process.stdout);\nconsole.log(chalk__WEBPACK_IMPORTED_MODULE_4__[\"default\"].green(\"********************************************\"));\nconsole.log(chalk__WEBPACK_IMPORTED_MODULE_4__[\"default\"].green(\"********** Welcome to Golf World! **********\"));\nconsole.log(chalk__WEBPACK_IMPORTED_MODULE_4__[\"default\"].green(\"********************************************\", '\\n'));\nconsole.log(chalk__WEBPACK_IMPORTED_MODULE_4__[\"default\"].bgGrey('********** Hole 1 **********', '\\n'));\n(0,_fontend_display_hole_map__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\nlet playerOne = '';\nlet playerTwo = '';\nconsole.log('\\n');\nconsole.log(chalk__WEBPACK_IMPORTED_MODULE_4__[\"default\"].bgGrey('********** Add players **********', '\\n'));\nrl.question('What is the name of the first player? ', (firstName) => {\n    rl.question('And what is name of the second player? ', (secondName) => {\n        const response = (0,_commands_player_selection__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(firstName, secondName);\n        console.log(chalk__WEBPACK_IMPORTED_MODULE_4__[\"default\"].bgGrey('\\n'));\n        console.log(chalk__WEBPACK_IMPORTED_MODULE_4__[\"default\"].green(\"⛳️ \", response));\n        console.log(chalk__WEBPACK_IMPORTED_MODULE_4__[\"default\"].bgGrey('\\n'));\n        console.log(match.data);\n    });\n});\n\n\n//# sourceURL=webpack:///./src/main.ts?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst display_hole_map_1 = __importDefault(__webpack_require__(/*! ./fontend/display-hole-map */ \"./src/fontend/display-hole-map.ts\"));\nconst player_selection_1 = __importDefault(__webpack_require__(/*! ./commands/player-selection */ \"./src/commands/player-selection.ts\"));\nconst tee_off_position_1 = __importDefault(__webpack_require__(/*! ./commands/tee-off-position */ \"./src/commands/tee-off-position.ts\"));\nconst match_1 = __importDefault(__webpack_require__(/*! ./data-store/match */ \"./src/data-store/match.ts\"));\nconst chalk_1 = __importDefault(__webpack_require__(/*! chalk */ \"./node_modules/chalk/source/index.js\"));\nconst clear_1 = __importDefault(__webpack_require__(/*! clear */ \"./node_modules/clear/index.js\"));\n(0, clear_1.default)();\nconst match = match_1.default.getInstance();\nlet actionQueue = [];\nconst readline = __webpack_require__(/*! readline/promises */ \"readline/promises\");\nlet rl = readline.createInterface(process.stdin, process.stdout);\nconsole.log(chalk_1.default.green(\"********************************************\"));\nconsole.log(chalk_1.default.green(\"********** Welcome to Golf World! **********\"));\nconsole.log(chalk_1.default.green(\"********************************************\", '\\n'));\nconsole.log(chalk_1.default.bgGrey('********** Hole 1 **********', '\\n'));\n(0, display_hole_map_1.default)();\nlet playerOne = '';\nlet playerTwo = '';\nconsole.log('\\n');\nasync function askTeePosition() {\n    let answer;\n    while (true) {\n        answer = await rl.question('Where would you like to tee off from? (1, 2, or 3): ');\n        if (['1', '2', '3'].includes(answer)) {\n            console.log(`You selected: ${answer}`);\n            return parseInt(answer);\n        }\n        else {\n            console.log('Invalid choice. Please enter 1, 2, or 3.');\n        }\n    }\n    rl.close();\n}\nasync function runGame() {\n    console.log(chalk_1.default.bgGrey('********** Add players **********', '\\n'));\n    const firstName = await rl.question('What is the name of the first player? ');\n    const secondName = await rl.question('And what is name of the second player? ');\n    const response = (0, player_selection_1.default)(firstName, secondName);\n    console.log(chalk_1.default.bgGrey('\\n'));\n    console.log(chalk_1.default.green(\"⛳️ \", response));\n    console.log(chalk_1.default.bgGrey('\\n'));\n    const playerOne = match.data.find(player => player.id === 1);\n    const playerTwo = match.data.find(player => player.id === 2);\n    console.log(\"You are teeing off first \" + playerOne.name);\n    console.log(chalk_1.default.bgGrey('\\n'));\n    console.log(\"Select your position on the tee\");\n    console.log(chalk_1.default.bgGrey('\\n'));\n    const chosenPosition = await askTeePosition();\n    const responsePlayerOneTeeOff = (0, tee_off_position_1.default)(playerOne, chosenPosition);\n    console.log(chalk_1.default.bgGrey('\\n'));\n    console.log(chalk_1.default.green(\"Tee off\", responsePlayerOneTeeOff));\n}\nrunGame();\n\n\n//# sourceURL=webpack:///./src/main.ts?");
 
 /***/ }),
 
@@ -118,14 +129,14 @@ module.exports = require("node:tty");
 
 /***/ }),
 
-/***/ "readline":
-/*!***************************!*\
-  !*** external "readline" ***!
-  \***************************/
+/***/ "readline/promises":
+/*!************************************!*\
+  !*** external "readline/promises" ***!
+  \************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("readline");
+module.exports = require("readline/promises");
 
 /***/ }),
 
@@ -193,25 +204,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -244,7 +243,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	var __webpack_exports__ = __webpack_require__("./src/main.ts");
 /******/ 	
 /******/ })()

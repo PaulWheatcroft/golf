@@ -24,5 +24,5 @@ export default function playerSelection(playerOne: string, playerTwo: string) {
         }
     )
 
-    return
+    return 'Game on!!!!'
 } 

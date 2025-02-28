@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "chalk": "5.4.1",
+        "clear": "^0.1.0",
         "node-polyfill-webpack-plugin": "^4.1.0"
     }
 }

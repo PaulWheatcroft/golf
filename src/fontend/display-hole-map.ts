@@ -23,6 +23,9 @@ export default function displayHoleMap() {
         case 'water':
           rowStr += chalk.bgBlue('   ');
           break;
+        case 'sand':
+          rowStr += chalk.bgYellow('   ');
+          break;
         case 'outOfBounds':
           rowStr += chalk.bgRedBright('   ');
           break;

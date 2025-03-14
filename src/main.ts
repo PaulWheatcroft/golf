@@ -2,7 +2,9 @@ import displayHoleMap from "./fontend/display-hole-map";
 import playerSelection from "./commands/player-selection";
 import clubSelection from "./commands/club-selection";
 import teeOffPosition from "./commands/tee-off-position";
+import hitBall from "./commands/hit-ball";
 import Hole from "./data-store/match";
+import { clubs } from "./types/clubs";
 import chalk from 'chalk';
 import clear from 'clear';
 
@@ -44,6 +46,36 @@ async function askTeePosition() {
     rl.close();
 }
 
+async function askClubSelection() {
+    let answer;
+    while (true) {
+        answer = await rl.question('What club would you like to use? ("Driver", "Long iron", "Iron", "Wedge", "Sand", "Putter"): ');
+        if (["Driver", "Long iron", "Iron", "Wedge", "Sand", "Putter"].includes(answer)) {
+            console.log(`You selected: ${answer}`);
+            const selectedClub = clubs.find(club => club.name === answer);
+            return selectedClub;
+        } else {
+            console.log('Invalid choice. Please enter "Driver", "Long iron", "Iron", "Wedge", "Sand", "Putter".');
+        }
+    }
+    rl.close();
+}
+
+async function askHitBall(player) {
+    let answer;
+    while (true) {
+        answer = await rl.question('Would you like to hit the ball? (yes/no): ');
+        if (["yes", "no"].includes(answer)) {
+            console.log(`You selected: ${answer}`);
+            const hit =hitBall(player);
+            return hit;
+        } else {
+            console.log('Invalid choice. Please enter "yes" or "no".');
+        }
+    }
+    rl.close();
+}
+
 async function runGame() {
     console.log(chalk.bgGrey('********** Add players **********', '\n'));
     const firstName = await rl.question('What is the name of the first player? ');
@@ -61,7 +93,11 @@ async function runGame() {
     const chosenPosition = await askTeePosition();
     const responsePlayerOneTeeOff = teeOffPosition(playerOne, chosenPosition);
     console.log(chalk.bgGrey('\n'));
-    console.log(chalk.green("Tee off", responsePlayerOneTeeOff));
+    const clubResponse = await askClubSelection();
+    clubSelection(playerOne, clubResponse);
+    const hitBallResponse = askHitBall(playerOne);
+    console.log(chalk.bgGrey('\n'));
+    console.log(hitBallResponse);
 
 }
 

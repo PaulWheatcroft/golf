@@ -31,23 +31,23 @@ export const clubs = [
         fairwayPower: [-5, -5, -4, -3, -2, -1, 0, 0, 1, 2, 2, 2], 
         fairwayAccuracy: [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3]
     },
-    {
-        name: "Sand", 
-        distance: 2, 
-        rough: false, 
-        sand: true, 
-        sandPower: [-2, -2, -1, -1, 0, 0, 0, 0, 1, 1, 1, 2],
-        sandAccuracy: [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3]
-    },
-    {
-        name: "Putter", 
-        distance: 3, 
-        rough: false, 
-        sand: false,
-        putterPower: [-3, -3, -2, -1, 0, 0, 0, 0, 1, 1, 1, 1],
-        putterAccuracy: [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3] 
+    // {
+    //     name: "Sand", 
+    //     distance: 2, 
+    //     rough: false, 
+    //     sand: true, 
+    //     sandPower: [-2, -2, -1, -1, 0, 0, 0, 0, 1, 1, 1, 2],
+    //     sandAccuracy: [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3]
+    // },
+    // {
+    //     name: "Putter", 
+    //     distance: 3, 
+    //     rough: false, 
+    //     sand: false,
+    //     putterPower: [-3, -3, -2, -1, 0, 0, 0, 0, 1, 1, 1, 1],
+    //     putterAccuracy: [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3] 
         
-    }
+    // }
 ];
 
 export type Club = {

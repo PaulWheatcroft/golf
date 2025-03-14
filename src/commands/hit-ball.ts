@@ -33,9 +33,13 @@ export default function hitBall(player) {
     const currentposition = match.findLast(item => item.type === 'hitBall' && item.playerId === player.id) || match.findLast(item => item.type === 'teeOffPosition' && item.playerId === player.id);
 
     const powerRoll = randomNumber()
+    console.log(`Power roll: ${powerRoll}`)
     const accuracyRoll = randomNumber()
+    console.log(`Accuracy roll: ${accuracyRoll}`)
 
     const modifiers = lookupModifiers(selectedClub, powerRoll, accuracyRoll)
+
+    // 
     
     const distance = selectedClub.club.distance + modifiers.power
     let accuracy = currentposition.position[1]
@@ -45,9 +49,9 @@ export default function hitBall(player) {
         accuracy = accuracy + 1
     }
 
-    const newPosition = [currentposition.position[0] + distance, accuracy]
+    const newPosition = [currentposition.position[0] - distance, accuracy]
 
-    console.log(`Player ${player.name} started at ${currentposition.position} and hit the ball ${distance} yards with an accuracy of ${accuracy} to position ${newPosition}`)
+    console.log(`Player ${player.name} started at ${currentposition.position} and hit the ball ${distance} yards with an accuracy of ${modifiers.accuracy} to position ${newPosition}`)
     
     match.push({ playerId: player.id, playerName: player.name, type: 'hitBall', position: newPosition })
     return

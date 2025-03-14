@@ -35,7 +35,20 @@ describe('hit-ball at tee off', () => {
         hitBall(player1)
         // in test findLast needs to run on match.data not just match
         const newPosition = match.data.findLast(item => item.type === 'hitBall');
-        expect(newPosition.position[0]).toBeGreaterThan(currentPosition.position[0])
+        expect(newPosition.position[0]).toBeLessThan(currentPosition.position[0])
+        console.log("******", match.data)
+    })
+    it('should return the correct new accuracy position', () => {
+        const match = Hole.getInstance()
+        const player1 = match.data[0]
+        const currentPosition = match.data.findLast(item => item.type === 'teeOffPosition');
+
+        // how do i mock hit ball to return a specific value
+        
+        hitBall(player1)
+        // in test findLast needs to run on match.data not just match
+        const newPosition = match.data.findLast(item => item.type === 'hitBall');
+        expect(newPosition.position[1]).toBe(currentPosition.position[1])
         console.log("******", match.data)
     })
 })

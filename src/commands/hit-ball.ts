@@ -12,6 +12,13 @@ function getClubModifiers(selectedClub, powerRoll, accuracyRoll) {
   return { power, accuracy };
 }
 
+const accuracyTextMap = (accuracy) => (
+  accuracy === 1 ? 'straight' :
+  accuracy === 2 ? 'left' :
+  accuracy === 3 ? 'right' :
+  'unknown'
+);
+
 export default function hitBall(player) {
   const matchData = Hole.getInstance().data;
   const selectedClub = matchData.findLast(item => item.type === 'clubSelection');
@@ -35,7 +42,7 @@ export default function hitBall(player) {
   else if (accuracy === 3) newAccuracy += 1;
 
   const newPosition = [currentPosition.position[0] - distance, newAccuracy];
-  console.log(`Player ${player.name} started at ${currentPosition.position} and hit the ball ${distance} yards with an accuracy of ${accuracy} to position ${newPosition}`);
+  console.log(`Player ${player.name} started at ${currentPosition.position} and hit the ball ${distance}0 yards ${accuracyTextMap(accuracy)} to position ${newPosition}`);
 
   matchData.push({ playerId: player.id, playerName: player.name, type: 'hitBall', position: newPosition });
 }

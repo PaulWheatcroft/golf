@@ -1,9 +1,13 @@
 import Hole from '../data-store/match'
-import chalk from 'chalk';
+// Replace static import with dynamic import
+// import chalk from 'chalk';
 
 const firstHole = Hole.getInstance();
 
-export default function displayHoleMap() {
+export default async function displayHoleMap() {
+  // Use dynamic import for chalk
+  const chalk = (await import('chalk')).default;
+  
   console.log('Hole Map:');
   for (let i = 0; i < firstHole.map.length; i++) {
     const row = firstHole.map[i];
@@ -33,11 +37,11 @@ export default function displayHoleMap() {
           rowStr += chalk.bgWhite(' 1 ');
           break;
         case 'teeoffCenter':
-            rowStr += chalk.bgWhite(' 2 ');
-            break;
+          rowStr += chalk.bgWhite(' 2 ');
+          break;
         case 'teeoffRight':
-            rowStr += chalk.bgWhite(' 3 ');
-            break;
+          rowStr += chalk.bgWhite(' 3 ');
+          break;
         default:
           rowStr += '   '; // empty space
       }

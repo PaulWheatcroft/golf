@@ -6,19 +6,24 @@ import hitBall from "./commands/hit-ball";
 import Hole from "./data-store/match";
 import { clubs } from "./types/clubs";
 import clear from "clear";
-import "./main.ts";
 
 // Mock chalk to avoid issues during testing
 jest.mock("chalk", () => ({
-  green: (str) => str,
-  bgGrey: (str) => str,
-  bgGreen: (str) => str,
-  bgGreenBright: (str) => str,
-  bgBlue: (str) => str,
-  bgYellow: (str) => str,
-  bgRedBright: (str) => str,
-  bgWhite: (str) => str,
+  __esModule: true,
+  default: {
+    green: (str) => str,
+    bgGrey: (str) => str,
+    bgGreen: (str) => str,
+    bgGreenBright: (str) => str,
+    bgBlue: (str) => str,
+    bgYellow: (str) => str,
+    bgRedBright: (str) => str,
+    bgWhite: (str) => str,
+  }
 }));
+
+// Mock dynamic import
+jest.mock('./main.ts', () => ({}), { virtual: true });
 
 clear();
 
@@ -60,27 +65,4 @@ describe("Golf Game", () => {
       ])
     );
   });
-
-//   test("should set tee off position for the player", () => {
-//     playerSelection("Alice", "Bob");
-//     const player = match.data.find((player) => player.name === "Alice");
-//     teeOffPosition(player, 1);
-//     expect(match.data).toEqual(
-//       expect.arrayContaining([
-//         expect.objectContaining({ type: "teeOffPosition", position: [11, 2] }),
-//       ])
-//     );
-//   });
-
-//   test("should hit the ball and update position", () => {
-//     playerSelection("Alice", "Bob");
-//     const player = match.data.find((player) => player.name === "Alice");
-//     teeOffPosition(player, 1);
-//     const selectedClub = clubs.find((club) => club.name === "Driver");
-//     clubSelection(player, selectedClub);
-//     hitBall(player);
-//     expect(match.data).toEqual(
-//       expect.arrayContaining([expect.objectContaining({ type: "hitBall" })])
-//     );
-//   });
 });

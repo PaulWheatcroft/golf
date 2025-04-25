@@ -1,6 +1,8 @@
 export const player1TeeOff = {
+  players: [
     { id: 1, type: 'player', name: 'Vladislav' },
     { id: 2, type: 'player', name: 'Paul' },
+  ],
     holes: [
       {
         number: 1,

@@ -19,7 +19,7 @@ let actionQueue = [];
 const readline = require('readline/promises');
 let rl = readline.createInterface(process.stdin, process.stdout);
 
-function init() {
+async function init() {
   clear();
   
   console.log(chalk.green("********************************************"));
@@ -27,7 +27,7 @@ function init() {
   console.log(chalk.green("********************************************", '\n'));
   console.log(chalk.bgGrey('********** Hole 1 **********', '\n'));
 
-  displayHoleMap();
+  await displayHoleMap();
 
   let playerOne = '';
   let playerTwo = '';
@@ -42,7 +42,6 @@ async function askTeePosition() {
   while (true) {
     answer = await rl.question('Where would you like to tee off from? (1, 2, or 3): ');
     if (['1', '2', '3'].includes(answer)) {
-      console.log(`You selected: ${answer}`);
       return parseInt(answer);
     } else {
       console.log('Invalid choice. Please enter 1, 2, or 3.');
@@ -67,18 +66,17 @@ async function askClubSelection() {
 }
 
 async function askHitBall(player) {
-  let answer;
-  while (true) {
-    answer = await rl.question('Would you like to hit the ball? (yes/no): ');
+    let answer = await rl.question('Would you like to hit the ball? (yes/no): ');
     if (["yes", "no"].includes(answer)) {
-      console.log(`You selected: ${answer}`);
-      const hit = hitBall(player);
-      return hit;
+        console.log(`THWACK!`);
+        const hit = hitBall(player);
+        console.log(hit)
+        return;
     } else {
-      console.log('Invalid choice. Please enter "yes" or "no".');
+        console.log('Invalid choice. Please enter "yes" or "no".');
     }
-  }
-  rl.close();
+
+    rl.close();
 }
 
 async function runGame() {
@@ -97,10 +95,11 @@ async function runGame() {
   console.log(chalk.bgGrey('\n'));
   const chosenPosition = await askTeePosition();
   const responsePlayerOneTeeOff = teeOffPosition(playerOne, chosenPosition);
+  console.log(responsePlayerOneTeeOff)
   console.log(chalk.bgGrey('\n'));
   const clubResponse = await askClubSelection();
   clubSelection(playerOne, clubResponse);
-  const hitBallResponse = askHitBall(playerOne);
+  askHitBall(playerOne);
+  await rl.question('Press enter to continue to the next player');
   console.log(chalk.bgGrey('\n'));
-  console.log(hitBallResponse);
 }

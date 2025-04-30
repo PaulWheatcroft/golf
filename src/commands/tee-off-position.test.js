@@ -13,11 +13,12 @@ describe('tee-off hole one', () => {
         const match = Hole.getInstance()
         const firstPlayer = match.data[0]
 
-        teeOffPosition(firstPlayer, 1)
+        const response = teeOffPosition(firstPlayer, 1)
         
         expect(match.data).toHaveLength(3)
         expect(match.data[2].position[0]).toBe(11)
         expect(match.data[2].position[1]).toBe(2)
+        expect(response).toBe('Player Vladislav to tee off from position 1') 
     })
     // it('the first player cannot choose an incorrect postition to teeoff from', () => {
     //     const match = Hole.getInstance()

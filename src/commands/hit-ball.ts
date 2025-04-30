@@ -30,9 +30,7 @@ export default function hitBall(player) {
                           matchData.findLast(item => item.type === 'teeOffPosition' && item.playerId === player.id);
 
   const powerRoll = rollDice();
-  console.log(`Power roll: ${powerRoll}`);
   const accuracyRoll = rollDice();
-  console.log(`Accuracy roll: ${accuracyRoll}`);
 
   const { power, accuracy } = getClubModifiers(selectedClub, powerRoll, accuracyRoll);
   const distance = selectedClub.club.distance + power;
@@ -42,7 +40,7 @@ export default function hitBall(player) {
   else if (accuracy === 3) newAccuracy += 1;
 
   const newPosition = [currentPosition.position[0] - distance, newAccuracy];
-  console.log(`Player ${player.name} started at ${currentPosition.position} and hit the ball ${distance}0 yards ${accuracyTextMap(accuracy)} to position ${newPosition}`);
-
+  
   matchData.push({ playerId: player.id, playerName: player.name, type: 'hitBall', position: newPosition });
+  return `Player ${player.name} started at ${currentPosition.position} and hit the ball ${distance}0 yards ${accuracyTextMap(accuracy)} to position ${newPosition}`;
 }

@@ -92,6 +92,48 @@ describe('hit-ball at tee off', () => {
         const newPosition = match.data.findLast(item => item.type === 'hitBall');
         expect(newPosition.position[1]).toBe(currentPosition.position[1] + 1)
     })
+
+    it('should return a correct new distance position when the power roll is 7', () => {
+        const match = Hole.getInstance()
+        const player1 = match.data[0]
+        const currentPosition = match.data.findLast(item => item.type === 'teeOffPosition');
+        
+        // Mock sequence for high power shot
+        let mockRolls = [7, 7]; // Power roll, accuracy roll
+        diceRoller.rollDice = jest.fn(() => mockRolls.shift());
+        
+        hitBall(player1)
+        const newPosition = match.data.findLast(item => item.type === 'hitBall');
+        expect(newPosition.position[0]).toBe(currentPosition.position[0] - 5)
+    })
+
+    it('should return a correct new distance position when the power roll is high', () => {
+        const match = Hole.getInstance()
+        const player1 = match.data[0]
+        const currentPosition = match.data.findLast(item => item.type === 'teeOffPosition');
+        
+        // Mock sequence for high power shot
+        let mockRolls = [12, 7]; // Power roll, accuracy roll
+        diceRoller.rollDice = jest.fn(() => mockRolls.shift());
+        
+        hitBall(player1)
+        const newPosition = match.data.findLast(item => item.type === 'hitBall');
+        expect(newPosition.position[0]).toBe(currentPosition.position[0] - 7)
+    })
+
+    it('should return a correct new distance position when the power roll is low', () => {
+        const match = Hole.getInstance()
+        const player1 = match.data[0]
+        const currentPosition = match.data.findLast(item => item.type === 'teeOffPosition');
+        
+        // Mock sequence for high power shot
+        let mockRolls = [1, 7]; // Power roll, accuracy roll
+        diceRoller.rollDice = jest.fn(() => mockRolls.shift());
+        
+        hitBall(player1)
+        const newPosition = match.data.findLast(item => item.type === 'hitBall');
+        expect(newPosition.position[0]).toBe(currentPosition.position[0])
+    })
     
     afterAll(() => {
         // Restore original function after all tests

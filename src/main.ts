@@ -37,6 +37,19 @@ async function init() {
   runGame();
 }
 
+async function pressSpaceBarToContinue(action: string) {
+  return new Promise((resolve) => {
+    rl.question(`Press spacebar to ${action} `, (answer) => {
+      if (answer === ' ') {
+        resolve(action);
+      } else {
+        console.log('Invalid input. Please press the spacebar.');
+        pressSpaceBarToContinue(action).then(resolve);
+      }
+    });
+  });
+}
+
 async function askTeePosition() {
   let answer;
   while (true) {
@@ -99,7 +112,7 @@ async function runGame() {
   console.log(chalk.bgGrey('\n'));
   const clubResponse = await askClubSelection();
   clubSelection(playerOne, clubResponse);
-  askHitBall(playerOne);
-  await rl.question('Press enter to continue to the next player');
+  await askHitBall(playerOne);
+  pressSpaceBarToContinue('continue')
   console.log(chalk.bgGrey('\n'));
 }

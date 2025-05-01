@@ -12,8 +12,6 @@ function getClubModifiers(selectedClub, powerRoll, accuracyRoll) {
   const clubAttributes = clubs.find(club => club.name === selectedClub.club.name);
   const power = clubAttributes.fairwayPower[powerRoll - 1];
   const accuracy = clubAttributes.fairwayAccuracy[accuracyRoll - 1];
-  console.log(`Power Roll: ${powerRoll}, Accuracy Roll: ${accuracyRoll}`);
-  console.log(`Power Modified: ${power}, Accuracy Modified: ${accuracy}`);
   return { power, accuracy };
 }
 

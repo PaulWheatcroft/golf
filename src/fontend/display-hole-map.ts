@@ -1,6 +1,4 @@
 import Hole from '../data-store/match'
-// Replace static import with dynamic import
-// import chalk from 'chalk';
 
 const firstHole = Hole.getInstance();
 

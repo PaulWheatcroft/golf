@@ -1,20 +1,25 @@
 import Hole from '../data-store/match';
 import { clubs } from '../types/clubs';
 
-function rollDice(): number {
-  return Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1;
-}
+// Move rollDice to a separate module for easier mocking
+export const diceRoller = {
+  rollDice: (): number => {
+    return Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1;
+  }
+};
 
 function getClubModifiers(selectedClub, powerRoll, accuracyRoll) {
   const clubAttributes = clubs.find(club => club.name === selectedClub.club.name);
   const power = clubAttributes.fairwayPower[powerRoll - 1];
   const accuracy = clubAttributes.fairwayAccuracy[accuracyRoll - 1];
+  console.log(`Power Roll: ${powerRoll}, Accuracy Roll: ${accuracyRoll}`);
+  console.log(`Power Modified: ${power}, Accuracy Modified: ${accuracy}`);
   return { power, accuracy };
 }
 
 const accuracyTextMap = (accuracy) => (
-  accuracy === 1 ? 'straight' :
-  accuracy === 2 ? 'left' :
+  accuracy === 1 ? 'left' :
+  accuracy === 2 ? 'straight' :
   accuracy === 3 ? 'right' :
   'unknown'
 );
@@ -29,8 +34,9 @@ export default function hitBall(player) {
   const currentPosition = matchData.findLast(item => item.type === 'hitBall' && item.playerId === player.id) ||
                           matchData.findLast(item => item.type === 'teeOffPosition' && item.playerId === player.id);
 
-  const powerRoll = rollDice();
-  const accuracyRoll = rollDice();
+  // Use the diceRoller object instead of directly calling rollDice
+  const powerRoll = diceRoller.rollDice();
+  const accuracyRoll = diceRoller.rollDice();
 
   const { power, accuracy } = getClubModifiers(selectedClub, powerRoll, accuracyRoll);
   const distance = selectedClub.club.distance + power;

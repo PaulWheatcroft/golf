@@ -93,26 +93,43 @@ async function askHitBall(player) {
 }
 
 async function runGame() {
-  console.log(chalk.bgGrey('********** Add players **********', '\n'));
-  const firstName = await rl.question('What is the name of the first player? ');
-  const secondName = await rl.question('And what is name of the second player? ');
-  const response = playerSelection(firstName, secondName);
-  console.log(chalk.bgGrey('\n'));
-  console.log(chalk.green("⛳️ ", response));
-  console.log(chalk.bgGrey('\n'));
-  const playerOne = match.data.find(player => player.id === 1);
-  const playerTwo = match.data.find(player => player.id === 2);
-  console.log("You are teeing off first " + playerOne.name);
-  console.log(chalk.bgGrey('\n'));
-  console.log("Select your position on the tee");
-  console.log(chalk.bgGrey('\n'));
-  const chosenPosition = await askTeePosition();
-  const responsePlayerOneTeeOff = teeOffPosition(playerOne, chosenPosition);
-  console.log(responsePlayerOneTeeOff)
-  console.log(chalk.bgGrey('\n'));
-  const clubResponse = await askClubSelection();
-  clubSelection(playerOne, clubResponse);
-  await askHitBall(playerOne);
-  pressSpaceBarToContinue('continue')
-  console.log(chalk.bgGrey('\n'));
+    // Game setup
+    console.log(chalk.bgGrey('********** Add players **********', '\n'));
+    const firstName = await rl.question('What is the name of the first player? ');
+    const secondName = await rl.question('And what is name of the second player? ');
+    const response = playerSelection(firstName, secondName);
+    console.log(chalk.bgGrey('\n'));
+    console.log(chalk.green("⛳️ ", response));
+    console.log(chalk.bgGrey('\n'));
+    const playerOne = match.data.find(player => player.id === 1);
+    const playerTwo = match.data.find(player => player.id === 2);
+    console.log("You are teeing off first " + playerOne.name);
+
+    //   Player one tee off
+
+    console.log(chalk.bgGrey('\n'));
+    console.log("Select your position on the tee");
+    console.log(chalk.bgGrey('\n'));
+    const chosenPositionPlayerOne = await askTeePosition();
+    const responsePlayerOneTeeOff = teeOffPosition(playerOne, chosenPositionPlayerOne);
+    console.log(responsePlayerOneTeeOff)
+    console.log(chalk.bgGrey('\n'));
+    const clubResponse = await askClubSelection();
+    clubSelection(playerOne, clubResponse);
+    await askHitBall(playerOne);
+    displayHoleMap()
+
+    //   Player two tee off
+
+    console.log(chalk.bgGrey('\n'));
+    console.log("Select your position on the tee player two");
+    console.log(chalk.bgGrey('\n'));
+    const chosenPositionPlayerTwo = await askTeePosition();
+    const responsePlayerTwoTeeOff = teeOffPosition(playerTwo, chosenPositionPlayerTwo);
+    console.log(responsePlayerTwoTeeOff)
+    console.log(chalk.bgGrey('\n'));
+    const clubResponsePlayerTwo = await askClubSelection();
+    clubSelection(playerTwo, clubResponsePlayerTwo);
+    await askHitBall(playerTwo);
+    displayHoleMap()
 }

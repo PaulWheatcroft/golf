@@ -13,6 +13,6 @@ export const firstHole = {
     ["fairway", "fairway", "fairway", "fairway", "fairway"],
     ["fairway", "teeoffLeft", "teeoffCenter", "teeoffRight", "fairway"], // Row 11 (Bottom - Teeoff)
   ],
-  teeoffPositions: [[11, 2], [11, 3], [11, 4]],
+  teeoffPositions: [[11, 1], [11, 2], [11, 3]],
 };
 

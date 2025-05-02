@@ -6,44 +6,109 @@ export default async function displayHoleMap() {
   // Use dynamic import for chalk
   const chalk = (await import('chalk')).default;
   
+  // Get fresh data each time
+  const data = firstHole.data;
+  
+  // Get the latest position for each player
+  const player1Position = data.findLast(item => 
+    (item.type === 'hitBall' || item.type === 'teeOffPosition') && 
+    item.playerId === 1
+  );
+  
+  const player2Position = data.findLast(item => 
+    (item.type === 'hitBall' || item.type === 'teeOffPosition') && 
+    item.playerId === 2
+  );
+
+  // Circle icons for players
+  const player1Icon = ' ● '; 
+  const player2Icon = ' ○ '; 
+  const bothPlayersIcon = ' ◉ '; 
+  
   console.log('Hole Map:');
   for (let i = 0; i < firstHole.map.length; i++) {
     const row = firstHole.map[i];
     let rowStr = '';
     for (let j = 0; j < row.length; j++) {
       const cell = row[j];
-      switch (cell) {
-        case 'fairway':
-          rowStr += chalk.bgGreen('   '); // green background
-          break;
-        case 'green':
-          rowStr += chalk.bgGreenBright('   ');
-          break;
-        case 'hole':
-          rowStr += chalk.bgGreenBright('(H)');
-          break;
-        case 'water':
-          rowStr += chalk.bgBlue('   ');
-          break;
-        case 'sand':
-          rowStr += chalk.bgYellow('   ');
-          break;
-        case 'outOfBounds':
-          rowStr += chalk.bgRedBright('   ');
-          break;
-        case 'teeoffLeft':
-          rowStr += chalk.bgWhite(' 1 ');
-          break;
-        case 'teeoffCenter':
-          rowStr += chalk.bgWhite(' 2 ');
-          break;
-        case 'teeoffRight':
-          rowStr += chalk.bgWhite(' 3 ');
-          break;
-        default:
-          rowStr += '   '; // empty space
+      
+      // Check if current position matches a player's position
+      const isPlayer1Here = player1Position && 
+                            player1Position.position && 
+                            player1Position.position[0] === j && 
+                            player1Position.position[1] === i;
+      
+      const isPlayer2Here = player2Position && 
+                            player2Position.position && 
+                            player2Position.position[0] === j && 
+                            player2Position.position[1] === i;
+      
+      // Players with matching terrain background
+      if (isPlayer1Here && isPlayer2Here) {
+        const bgColor = getBackgroundColor(cell, chalk);
+        rowStr += bgColor(chalk.white(bothPlayersIcon));
+      } else if (isPlayer1Here) {
+        const bgColor = getBackgroundColor(cell, chalk);
+        rowStr += bgColor(chalk.white(player1Icon));
+      } else if (isPlayer2Here) {
+        const bgColor = getBackgroundColor(cell, chalk);
+        rowStr += bgColor(chalk.black(player2Icon));
+      } else {
+        // No player here, display terrain
+        switch (cell) {
+          case 'fairway':
+            rowStr += chalk.bgGreen('   ');
+            break;
+          case 'green':
+            rowStr += chalk.bgGreenBright('   ');
+            break;
+          case 'hole':
+            rowStr += chalk.bgGreenBright('(H)');
+            break;
+          case 'water':
+            rowStr += chalk.bgBlue('   ');
+            break;
+          case 'sand':
+            rowStr += chalk.bgYellow('   ');
+            break;
+          case 'outOfBounds':
+            rowStr += chalk.bgRedBright('   ');
+            break;
+          case 'teeoffLeft':
+            rowStr += chalk.white.bgGreen(' 🀙 ');
+            break;
+          case 'teeoffCenter':
+            rowStr += chalk.bgGreen(' 🀚 ');
+            break;
+          case 'teeoffRight':
+            rowStr += chalk.bgGreen(' 🀛 ');
+            break;
+          default:
+            rowStr += '   ';
+        }
       }
     }
     console.log(rowStr);
+  }
+  
+  // For debugging
+  console.log("\nPlayer Positions:");
+  if (player1Position) console.log(`Player 1: ${player1Position.playerName} at position ${JSON.stringify(player1Position.position)}`);
+  if (player2Position) console.log(`Player 2: ${player2Position?.playerName} at position ${JSON.stringify(player2Position?.position)}`);
+  return
+}
+
+// Helper function to get background color for a terrain type
+function getBackgroundColor(cell, chalk) {
+  switch (cell) {
+    case 'fairway': return chalk.bgGreen;
+    case 'green': return chalk.bgGreenBright;
+    case 'water': return chalk.bgBlue;
+    case 'sand': return chalk.bgYellow;
+    case 'outOfBounds': return chalk.bgRedBright;
+    case 'teeoffLeft':
+    case 'teeoffCenter':
+    case 'teeoffRight': return chalk.bgWhite;
+    default: return chalk.bgGreen; // Default to fairway
   }
 }

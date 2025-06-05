@@ -4,7 +4,7 @@ import clubSelection from "./commands/club-selection";
 import teeOffPosition from "./commands/tee-off-position";
 import hitBall from "./commands/hit-ball";
 import Hole from "./data-store/match";
-import { clubs } from "./types/clubs";
+import { clubs, Club } from "./types/clubs";
 import clear from 'clear';
 
 // Use dynamic import for chalk to avoid ESM/CommonJS issues
@@ -17,7 +17,13 @@ let chalk;
 const match = Hole.getInstance();
 let actionQueue = [];
 const readline = require('readline/promises');
+const { stdin, stdout } = require('process');
 let rl = readline.createInterface(process.stdin, process.stdout);
+
+// Set up raw mode for stdin to capture arrow keys
+stdin.setRawMode(true);
+stdin.resume();
+stdin.setEncoding('utf8');
 
 async function init() {
   clear();
@@ -60,22 +66,54 @@ async function askTeePosition() {
       console.log('Invalid choice. Please enter 1, 2, or 3.');
     }
   }
-  rl.close();
 }
 
-async function askClubSelection() {
-  let answer;
-  while (true) {
-    answer = await rl.question('What club would you like to use? ("Driver", "Long iron", "Iron", "Wedge", "Sand", "Putter"): ');
-    if (["Driver", "Long iron", "Iron", "Wedge", "Sand", "Putter"].includes(answer)) {
-      console.log(`You selected: ${answer}`);
-      const selectedClub = clubs.find(club => club.name === answer);
-      return selectedClub;
-    } else {
-      console.log('Invalid choice. Please enter "Driver", "Long iron", "Iron", "Wedge", "Sand", "Putter".');
-    }
-  }
-  rl.close();
+async function askClubSelection(): Promise<Club> {
+  const availableClubs = ["Driver", "Long iron", "Iron", "Wedge", "Sand", "Putter"];
+  let selectedIndex = 0;
+
+  // Function to display the club selection menu
+  const displayMenu = () => {
+    clear();
+    console.log('Select your club using ↑↓ arrows and press SPACE to confirm:');
+    console.log('\n');
+    availableClubs.forEach((club, index) => {
+      if (index === selectedIndex) {
+        console.log(chalk.bgGreen(` > ${club} < `));
+      } else {
+        console.log(`   ${club}   `);
+      }
+    });
+  };
+
+  return new Promise((resolve) => {
+    displayMenu();
+
+    const handleKeyPress = (data: string) => {
+      if (data === '\u001b[A') { // Up arrow
+        selectedIndex = Math.max(0, selectedIndex - 1);
+        displayMenu();
+      } else if (data === '\u001b[B') { // Down arrow
+        selectedIndex = Math.min(availableClubs.length - 1, selectedIndex + 1);
+        displayMenu();
+      } else if (data === ' ') { // Spacebar
+        stdin.setRawMode(false);
+        stdin.removeListener('data', handleKeyPress);
+        const selectedClub = clubs.find(club => club.name === availableClubs[selectedIndex]);
+        if (!selectedClub) {
+          throw new Error('Selected club not found');
+        }
+        console.log(`\nYou selected: ${availableClubs[selectedIndex]}`);
+        resolve(selectedClub);
+      } else if (data === '\u0003') { // Ctrl+C
+        stdin.setRawMode(false);
+        stdin.pause();
+        process.exit();
+      }
+    };
+
+    stdin.on('data', handleKeyPress);
+  });
 }
 
 async function askHitBall(player) {
@@ -88,8 +126,6 @@ async function askHitBall(player) {
     } else {
         console.log('Invalid choice. Please enter "yes" or "no".');
     }
-
-    rl.close();
 }
 
 async function runGame() {

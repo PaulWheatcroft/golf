@@ -65,10 +65,10 @@ describe('Distance Calculation System', () => {
 
     describe('calculateDistanceFromHole', () => {
         it('should calculate distance from tee position to hole', () => {
-            // Tee position is [11, 2], hole is at [2, 2]
-            // Distance should be 9 (straight vertical line)
-            const distance = calculateDistanceFromHole([11, 2], firstHole.map);
-            expect(distance).toBe(9);
+            // Tee position is [15, 2], hole is at [2, 2]
+            // Distance should be 13 (straight vertical line)
+            const distance = calculateDistanceFromHole([15, 2], firstHole.map);
+            expect(distance).toBe(13);
         });
 
         it('should calculate distance from green position to hole', () => {
@@ -122,20 +122,20 @@ describe('Distance Calculation System', () => {
                     playerId: 1, 
                     playerName: 'Player1', 
                     type: 'teeOffPosition', 
-                    position: [11, 2] 
+                    position: [15, 2] 
                 },
                 { 
                     playerId: 2, 
                     playerName: 'Player2', 
                     type: 'teeOffPosition', 
-                    position: [11, 1] 
+                    position: [15, 1] 
                 }
             ];
         });
 
         it('should get distance for player with teeOffPosition', () => {
             const distance = getPlayerDistanceFromHole(1, mockGameData, firstHole.map);
-            expect(distance).toBe(9); // Distance from [11, 2] to [2, 2]
+            expect(distance).toBe(13); // Distance from [15, 2] to [2, 2]
         });
 
         it('should get distance for player with hitBall position (most recent)', () => {
@@ -199,8 +199,8 @@ describe('Distance Calculation System', () => {
 
         it('should calculate distance correctly for player 2', () => {
             const distance = getPlayerDistanceFromHole(2, mockGameData, firstHole.map);
-            // Player 2 is at [11, 1], hole is at [2, 2]
-            const expectedDistance = Math.sqrt(Math.pow(9, 2) + Math.pow(1, 2));
+            // Player 2 is at [15, 1], hole is at [2, 2]
+            const expectedDistance = Math.sqrt(Math.pow(13, 2) + Math.pow(1, 2));
             expect(distance).toBeCloseTo(expectedDistance, 5);
         });
     });

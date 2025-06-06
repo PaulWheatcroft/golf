@@ -1,153 +1,88 @@
-# Golf Game Enhancement PRD
+# Golf Game Enhancement Project PRD
 
 ## Project Overview
-Enhance the existing command-line golf game to support complete two-player gameplay from tee shots through regular play until putting is required on the green.
+A two-player golf game that simulates a realistic golfing experience with turn-based gameplay, accurate distance calculations, and strategic shot management.
 
 ## Current State
-- Game handles player setup and first player tee shot
-- Basic club selection and ball hitting mechanics implemented
-- Map display system with player position tracking
-- Test suite with basic mocking
+- Functional two-player golf game
+- Extended 16-row hole map (upgraded from 11 rows)
+- Implemented distance calculation system
+- Turn-based logic system with furthest player priority
+- Continuous shot management
+- Real-time status display
+- Updated tee positions (row 15)
+- All core tests passing except aim-selection tests
 
-## Goals
-1. Complete two-player tee shot functionality
-2. Implement turn-based gameplay logic (furthest from hole plays next)
-3. Continue gameplay until putting is required
-4. Improve user interface interactions
-5. Enhance test coverage with better mocking
+## Core Features Implemented
+1. Distance Calculation System
+   - findHolePosition
+   - calculateEuclideanDistance
+   - calculateDistanceFromHole
+   - getPlayerDistanceFromHole
+   - Map bounds validation
 
-## Requirements
+2. Turn-Based Logic System
+   - Turn manager with 6 key functions
+   - Furthest player from hole plays next
+   - Stroke count tie-breaking
+   - Green detection system
 
-### Core Gameplay Features
+3. Game Flow Management
+   - Continuous shot management
+   - Enhanced game loop in main.ts
+   - Real-time status display
+   - Extended hole map dimensions
+   - Updated test suite
 
-#### 1. Two-Player Tee Shot System
-- **Description**: Ensure both players can complete their tee shots in proper sequence
-- **Acceptance Criteria**:
-  - Player 1 completes tee shot (position, club, hit)
-  - Player 2 can then complete tee shot sequence
-  - Game state properly tracks both player positions
-  - Map display shows both players correctly
+## Immediate Requirements
+1. Spacebar Shot Confirmation
+   - Replace all shot confirmations with spacebar-only input
+   - Update relevant UI elements
+   - Maintain game flow integrity
+   - Add appropriate feedback for player actions
 
-#### 2. Turn-Based Shot Logic
-- **Description**: Implement logic to determine which player shoots next based on distance from hole
-- **Acceptance Criteria**:
-  - Calculate distance from hole for each player after shots
-  - Player furthest from hole takes next shot
-  - Handle tie situations appropriately
-  - Continue until both players reach the green
+2. Aim Selection Test Updates
+   - Update all aim-selection tests to match new 16-row dimensions
+   - Ensure compatibility with spacebar confirmation
+   - Maintain test coverage
+   - Add new edge cases for extended map
 
-#### 3. Distance Calculation System
-- **Description**: Create system to calculate player distance from hole
-- **Acceptance Criteria**:
-  - Calculate Euclidean distance from current position to hole
-  - Handle different terrain types in distance calculation
-  - Provide clear feedback on distances
-  - Use distance for turn order determination
+## Future Enhancements
+1. UI/UX Improvements
+   - Enhanced visual feedback
+   - Clear player turn indicators
+   - Shot power visualization
+   - Improved status messages
 
-#### 4. Shot Progression Management
-- **Description**: Manage continuous shot taking until putting is required
-- **Acceptance Criteria**:
-  - Players alternate based on distance from hole
-  - Game continues until both players are on green
-  - Proper state management for each shot
-  - Handle out-of-bounds and water hazards
+2. Game Statistics
+   - Track scores per hole
+   - Calculate total strokes
+   - Store best performances
+   - Display player statistics
 
-#### 5. Green Detection and Putting Logic
-- **Description**: Detect when players reach the green and require putting
-- **Acceptance Criteria**:
-  - Identify when player ball is on green terrain
-  - Transition to putting mode when appropriate
-  - Different club restrictions on green
-  - Proper messaging for putting requirements
+3. Advanced Features
+   - Multiple hole courses
+   - Different terrain types
+   - Weather effects
+   - Club selection impact
 
-### User Interface Improvements
+## Technical Requirements
+- TypeScript implementation
+- Jest test coverage
+- Modular code structure
+- Comprehensive error handling
+- Performance optimization
 
-#### 6. Enhanced Shot Confirmation
-- **Description**: Replace "yes/no" input with spacebar press for shot confirmation
-- **Acceptance Criteria**:
-  - Change askHitBall function to use spacebar only
-  - Provide clear visual feedback for spacebar prompt
-  - Handle invalid inputs gracefully
-  - Maintain consistency with existing arrow key interactions
+## Success Criteria
+1. All tests passing, including updated aim-selection tests
+2. Smooth game flow with spacebar confirmation
+3. Clear player feedback
+4. Maintained code quality and test coverage
+5. Enhanced user experience
 
-#### 7. Improved Club Selection Interface
-- **Description**: Ensure club selection uses arrow keys consistently
-- **Acceptance Criteria**:
-  - Verify arrow key navigation works properly
-  - Add visual indicators for selected club
-  - Handle edge cases (first/last club selection)
-  - Consistent styling with existing interface
-
-#### 8. Enhanced Game State Display
-- **Description**: Improve information display during gameplay
-- **Acceptance Criteria**:
-  - Show current player turn clearly
-  - Display distance from hole for each player
-  - Show stroke count for each player
-  - Clear turn transition messaging
-
-### Testing and Quality
-
-#### 9. Enhanced Test Mocking
-- **Description**: Improve test suite with better mocking strategies
-- **Acceptance Criteria**:
-  - Replace basic mocks with proper Jest mocking
-  - Mock dice rolls consistently across tests
-  - Create test utilities for common game states
-  - Improve test isolation and reliability
-
-#### 10. Comprehensive Gameplay Testing
-- **Description**: Create tests for new gameplay scenarios
-- **Acceptance Criteria**:
-  - Test two-player tee shot sequences
-  - Test turn-based shot logic
-  - Test distance calculations
-  - Test green detection and transitions
-  - Integration tests for complete game flows
-
-#### 11. UI Interaction Testing
-- **Description**: Test user interface improvements
-- **Acceptance Criteria**:
-  - Test spacebar shot confirmation
-  - Test arrow key club selection
-  - Test display updates and messaging
-  - Mock readline interactions properly
-
-### Technical Architecture
-
-#### 12. Game State Management Refactoring
-- **Description**: Improve game state management for complex scenarios
-- **Acceptance Criteria**:
-  - Centralized turn management logic
-  - Clear separation of concerns between commands
-  - Proper error handling for invalid states
-  - Extensible architecture for future features
-
-#### 13. Command Pattern Enhancement
-- **Description**: Enhance existing command pattern for new features
-- **Acceptance Criteria**:
-  - Consistent command interfaces
-  - Proper parameter validation
-  - Error handling and messaging
-  - Testable command structures
-
-## Success Metrics
-- Two players can complete full game session until putting required
-- User interface feels responsive and intuitive
-- Test coverage maintains >90% with reliable mocking
-- Game state remains consistent throughout play
-- Clear feedback and messaging at all stages
-
-## Technical Constraints
-- Maintain existing TypeScript architecture
-- Use existing readline interface approach
-- Preserve current test framework (Jest)
-- Keep existing map-based game representation
-- Maintain singleton pattern for game state
-
-## Future Considerations
-- Putting mechanics implementation
-- Multiple hole support
-- Score tracking and handicapping
-- Save/load game functionality
-- Multiplayer networking capabilities 
+## Implementation Notes
+- Maintain existing code structure
+- Follow established naming conventions
+- Update documentation as needed
+- Ensure backward compatibility
+- Prioritize user experience 

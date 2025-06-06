@@ -11,7 +11,7 @@ beforeEach(() => {
             playerId: 1,
             playerName: 'Vladislav',
             type: 'teeOffPosition',
-            position: [ 11, 2 ]
+            position: [ 15, 2 ]
         },
     ]
 })

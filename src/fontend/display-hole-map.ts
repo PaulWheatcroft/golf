@@ -26,22 +26,22 @@ export default async function displayHoleMap() {
   const bothPlayersIcon = ' ◉ '; 
   
   console.log('Hole Map:');
-  for (let i = 0; i < firstHole.map.length; i++) {
-    const row = firstHole.map[i];
+  for (let row = 0; row < firstHole.map.length; row++) {
+    const rowData = firstHole.map[row];
     let rowStr = '';
-    for (let j = 0; j < row.length; j++) {
-      const cell = row[j];
+    for (let col = 0; col < rowData.length; col++) {
+      const cell = rowData[col];
       
-      // Check if current position matches a player's position
+      // Check if current position matches a player's position (using [row, col] format)
       const isPlayer1Here = player1Position && 
-                            player1Position.position && 
-                            player1Position.position[0] === j && 
-                            player1Position.position[1] === i;
+                          player1Position.position && 
+                          player1Position.position[0] === row && 
+                          player1Position.position[1] === col;
       
       const isPlayer2Here = player2Position && 
-                            player2Position.position && 
-                            player2Position.position[0] === j && 
-                            player2Position.position[1] === i;
+                          player2Position.position && 
+                          player2Position.position[0] === row && 
+                          player2Position.position[1] === col;
       
       // Players with matching terrain background
       if (isPlayer1Here && isPlayer2Here) {
@@ -60,19 +60,10 @@ export default async function displayHoleMap() {
             rowStr += chalk.bgGreen('   ');
             break;
           case 'green':
-            rowStr += chalk.bgGreenBright('   ');
+            rowStr += chalk.bgCyan('   ');
             break;
           case 'hole':
-            rowStr += chalk.bgGreenBright('(H)');
-            break;
-          case 'water':
-            rowStr += chalk.bgBlue('   ');
-            break;
-          case 'sand':
-            rowStr += chalk.bgYellow('   ');
-            break;
-          case 'outOfBounds':
-            rowStr += chalk.bgRedBright('   ');
+            rowStr += chalk.bgCyan('(H)');
             break;
           case 'teeoffLeft':
             rowStr += chalk.white.bgGreen(' 🀙 ');
@@ -91,6 +82,16 @@ export default async function displayHoleMap() {
     console.log(rowStr);
   }
   
+  // Add legend
+  console.log('\nLegend:');
+  console.log(chalk.white(' ●  - Player 1'));
+  console.log(chalk.black(' ○  - Player 2'));
+  console.log(chalk.white(' ◉  - Both players'));
+  console.log(chalk.bgCyan('   ') + ' - Green');
+  console.log(chalk.bgGreen('   ') + ' - Fairway');
+  console.log(chalk.bgCyan('(H)') + ' - Hole');
+  console.log(chalk.bgGreen(' 🀙  🀚  🀛 ') + ' - Tee-off positions');
+  
   // For debugging
   console.log("\nPlayer Positions:");
   if (player1Position) console.log(`Player 1: ${player1Position.playerName} at position ${JSON.stringify(player1Position.position)}`);
@@ -102,10 +103,7 @@ export default async function displayHoleMap() {
 function getBackgroundColor(cell, chalk) {
   switch (cell) {
     case 'fairway': return chalk.bgGreen;
-    case 'green': return chalk.bgGreenBright;
-    case 'water': return chalk.bgBlue;
-    case 'sand': return chalk.bgYellow;
-    case 'outOfBounds': return chalk.bgRedBright;
+    case 'green': return chalk.bgCyan;
     case 'teeoffLeft':
     case 'teeoffCenter':
     case 'teeoffRight': return chalk.bgWhite;

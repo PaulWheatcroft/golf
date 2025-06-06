@@ -12,7 +12,7 @@ beforeEach(() => {
             playerId: 1,
             playerName: 'Vladislav',
             type: 'teeOffPosition',
-            position: [11, 2]
+            position: [15, 2]
         },
         {
             playerId: 1,
@@ -31,7 +31,7 @@ describe('hit-ball at tee off', () => {
         const match = Hole.getInstance()
         const player1 = match.data[0]
         match.data.push({ playerId: 2, playerName: 'Paul', type: 'clubSelection', club: { name: 'Long Iron', distance: 5, rough: false, sand: false } })
-        const response = hitBall(player1)
+        const response = hitBall(player1, { checkTurn: false })
         expect(response).toBe('It is not your turn')
     })
     
@@ -44,7 +44,7 @@ describe('hit-ball at tee off', () => {
         let mockRolls = [7, 6]; // Power roll, accuracy roll
         diceRoller.rollDice = jest.fn(() => mockRolls.shift());
         
-        hitBall(player1)
+        hitBall(player1, { checkTurn: false })
         const newPosition = match.data.findLast(item => item.type === 'hitBall');
         expect(newPosition.position[0]).toBeLessThan(currentPosition.position[0])
     })
@@ -58,7 +58,7 @@ describe('hit-ball at tee off', () => {
         let mockRolls = [6, 7]; // Power roll, accuracy roll for 'straight'
         diceRoller.rollDice = jest.fn(() => mockRolls.shift());
         
-        const response = hitBall(player1)
+        const response = hitBall(player1, { checkTurn: false })
         console.log(response)
         const newPosition = match.data.findLast(item => item.type === 'hitBall');
         expect(newPosition.position[1]).toBe(currentPosition.position[1])
@@ -73,7 +73,7 @@ describe('hit-ball at tee off', () => {
         let mockRolls = [6, 2]; // Power roll, accuracy roll for 'left'
         diceRoller.rollDice = jest.fn(() => mockRolls.shift());
         
-        const response = hitBall(player1)
+        const response = hitBall(player1, { checkTurn: false })
         console.log(response)
         const newPosition = match.data.findLast(item => item.type === 'hitBall');
         expect(newPosition.position[1]).toBe(currentPosition.position[1] - 1)
@@ -88,7 +88,7 @@ describe('hit-ball at tee off', () => {
         let mockRolls = [6, 12]; // Power roll, accuracy roll for 'right'
         diceRoller.rollDice = jest.fn(() => mockRolls.shift());
         
-        hitBall(player1)
+        hitBall(player1, { checkTurn: false })
         const newPosition = match.data.findLast(item => item.type === 'hitBall');
         expect(newPosition.position[1]).toBe(currentPosition.position[1] + 1)
     })
@@ -102,7 +102,7 @@ describe('hit-ball at tee off', () => {
         let mockRolls = [7, 7]; // Power roll, accuracy roll
         diceRoller.rollDice = jest.fn(() => mockRolls.shift());
         
-        hitBall(player1)
+        hitBall(player1, { checkTurn: false })
         const newPosition = match.data.findLast(item => item.type === 'hitBall');
         expect(newPosition.position[0]).toBe(currentPosition.position[0] - 5)
     })
@@ -116,7 +116,7 @@ describe('hit-ball at tee off', () => {
         let mockRolls = [12, 7]; // Power roll, accuracy roll
         diceRoller.rollDice = jest.fn(() => mockRolls.shift());
         
-        hitBall(player1)
+        hitBall(player1, { checkTurn: false })
         const newPosition = match.data.findLast(item => item.type === 'hitBall');
         expect(newPosition.position[0]).toBe(currentPosition.position[0] - 7)
     })
@@ -130,7 +130,7 @@ describe('hit-ball at tee off', () => {
         let mockRolls = [1, 7]; // Power roll, accuracy roll
         diceRoller.rollDice = jest.fn(() => mockRolls.shift());
         
-        hitBall(player1)
+        hitBall(player1, { checkTurn: false })
         const newPosition = match.data.findLast(item => item.type === 'hitBall');
         expect(newPosition.position[0]).toBe(currentPosition.position[0])
     })

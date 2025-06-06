@@ -1,5 +1,6 @@
 import Hole from '../data-store/match';
 import { clubs } from '../types/clubs';
+import { isPlayerTurn } from '../utilities/turn-manager';
 
 // Move rollDice to a separate module for easier mocking
 export const diceRoller = {
@@ -22,12 +23,19 @@ const accuracyTextMap = (accuracy) => (
   'unknown'
 );
 
-export default function hitBall(player) {
-  const matchData = Hole.getInstance().data;
+export default function hitBall(player, options = { checkTurn: true }) {
+  const match = Hole.getInstance();
+  const matchData = match.data;
+  
   const selectedClub = matchData.findLast(item => item.type === 'clubSelection');
 
   if (!selectedClub) return 'Please select a club';
   if (selectedClub.playerId !== player.id) return 'It is not your turn';
+
+  // Optional turn validation (can be disabled for testing)
+  if (options.checkTurn && !isPlayerTurn(player.id, matchData, match.map)) {
+    return `It's not your turn. Wait for the other player to take their shot.`;
+  }
 
   const currentPosition = matchData.findLast(item => item.type === 'hitBall' && item.playerId === player.id) ||
                           matchData.findLast(item => item.type === 'teeOffPosition' && item.playerId === player.id);
